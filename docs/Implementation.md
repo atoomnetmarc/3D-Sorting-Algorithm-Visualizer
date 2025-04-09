@@ -1,0 +1,154 @@
+# Implementation Guide
+
+This guide provides a step-by-step approach to building the 3D Sorting Algorithm Visualizer incrementally.
+
+---
+
+## Milestone 1: Basic 3D Scene
+
+- Set up a Three.js scene with a camera and lighting
+- Add a simple grid of colored bars representing an array
+- Implement camera controls (OrbitControls)
+- Ensure the scene is responsive to window resizing
+- The colored bars should fill the entire browser viewport optimally, fully utilizing the available space without overflowing outside the viewport
+- **Hint:** Carefully tune the camera distance relative to the calculated fit distance. Bringing the camera slightly closer than the exact fit (e.g., multiply by 0.8 instead of 1.2) helps the bars fill the viewport more fully, especially on wide screens.
+
+---
+
+## Milestone 2: Array Initialization and Shuffling
+
+- Initialize an array with linearly distributed values (e.g., 1 to 100)
+- Assign each bar a fixed rainbow gradient color based on its value
+- Shuffle the array to create an unsorted state
+- Verify the rainbow appears scrambled after shuffling
+
+---
+
+## Milestone 3: Sorting Algorithm Generators
+
+- Implement Bubble Sort as an **async generator** yielding steps
+- Highlight compared bars using indicator dots positioned just below the bars. Ensure indicator dots are clearly visible and complement color cues. Test across all sorting algorithms for consistent highlighting behavior.
+
+---
+
+## Milestone 4: UI Controls
+
+- Add Start/Pause button
+- Add Step button (advance one step when paused)
+- Add algorithm selector dropdown and adjustable speed slider.
+- On initialization, explicitly read the dropdown and slider values and assign them to the internal state variables (e.g., `currentAlgorithm`, `speed`) to ensure UI and logic are synchronized, especially after page refreshes.
+- Set up event listeners on these controls to update the internal state dynamically when the user changes selections.
+- Connect the internal state variables to the sorting logic so that the selected algorithm and speed are always consistent with the UI.
+- Modularize into UI, controller, algorithms, entry point modules
+- Use a guard (e.g., `sortLoopPromise`) to prevent overlapping async sorting loops
+- Display a short description of the selected algorithm's working principle in the UI
+
+### Hints
+
+- Use an async guard (e.g., a promise variable) to prevent multiple overlapping sorting loops.
+- Implement pause and step by checking flags inside the async generator loop and waiting with small delays.
+- Update the sorting speed dynamically by reading the slider value inside the loop and applying a delay accordingly.
+- Carefully design the UI layout with flexbox or grid to keep controls aligned and user-friendly, even with multiple elements.
+- Modularize control logic separately from visualization and algorithms to simplify event handling and future extensions.
+
+### UI Stability Guidelines
+
+- Assign **fixed widths** to all control buttons (e.g., Start/Pause/Resume, Step) to prevent resizing when their labels change.
+- Set the **algorithm dropdown** to a fixed width wide enough to fit all algorithm names without truncation.
+- Constrain the **algorithm description** area with a fixed width and fixed height, enabling vertical scrolling if content overflows, to prevent the control panel from resizing vertically or horizontally.
+- Display a simple status indicator (e.g., "Sorting", "Paused") with a fixed width to avoid layout shifts. This basic indicator will be replaced by a detailed FSM state display (showing states like "IDLE", "SORTING", "PAUSED", etc.) when the FSM is implemented in Milestone 7.
+- Assign fixed widths to other dynamic elements like the **countdown display** and **speed slider**.
+- Avoid setting a fixed width on the entire control panel container; instead, fix the size of individual UI elements to maintain responsiveness and prevent layout shifts.
+- Design all UI elements to **avoid causing layout shifts** during dynamic content changes, ensuring a stable and user-friendly interface.
+
+---
+
+## Milestone 5: Add a Few More Algorithms
+
+- Implement 2-3 additional sorting algorithms as async generators:
+  - Insertion Sort
+  - Quicksort
+  - Selection Sort
+- Ensure these algorithms yield consistent compare/swap steps
+- Integrate them into the dropdown with dynamic switching during sorting
+- Refine the stateless async generator pattern
+- Perfect the cancellation and switching logic
+- Test seamless mid-sort switching thoroughly
+
+### Hints
+
+- **Implement all algorithms as async generators** that yield consistent `{ type: 'compare' | 'swap', indices: [i, j] }` steps.
+- **Design algorithms to be stateless**: they should only depend on the input array and not maintain internal state.
+- **Switching algorithms mid-sort** requires:
+  - Canceling the current async generator cleanly (e.g., with a cancellation flag).
+  - Immediately starting a new generator with the current partially sorted array.
+  - Avoiding array resets or shuffling during the switch.
+- **Manage async control flow carefully**:
+  - Use a cancellation flag checked inside the sort loop to exit gracefully.
+  - After cancellation, start the new algorithm's generator on the same array.
+  - Prevent overlapping sort loops with a guard promise.
+- **Maintain UI consistency**:
+  - Reset highlights when switching.
+  - Avoid flickering or inconsistent states.
+- **Keep the user experience intuitive**: switching should feel instant and not require manual pause/resume.
+
+---
+
+## Milestone 6: Add Remaining Algorithms
+
+- Implement the remaining sorting algorithms as async generators:
+  - Merge Sort
+  - Heap Sort
+  - Shell Sort
+  - Cocktail Shaker Sort
+  - Counting Sort
+  - Comb Sort
+  - Gnome Sort
+  - Odd-Even Sort
+  - Cycle Sort
+  - Pigeonhole Sort
+  - Bucket Sort
+  - Radix Sort
+  - Pancake Sort
+- Follow the same async generator pattern yielding consistent compare/swap steps
+- Integrate all into the dropdown with dynamic switching
+- Test switching algorithms at various sort stages
+
+---
+
+## Milestone 7: Automatic Cycling and FSM-Based Control Enhancements
+
+- **Refactor the control logic using an explicit Finite State Machine (FSM)** to manage all UI and sorting states clearly.
+- Define explicit states such as:
+  - `IDLE`: waiting for user or auto start
+  - `SORTING`: sorting in progress
+  - `PAUSED`: sorting paused by user
+  - `COUNTDOWN`: countdown before next auto cycle
+  - `CANCELING`: gracefully stopping current sort before switching
+- Implement a **centralized state transition function** to handle all changes between these states, ensuring clean and predictable behavior.
+- Start sorting automatically on application load by transitioning from `IDLE` to `SORTING`.
+- After each sort completes, transition to `COUNTDOWN`, display a countdown timer, reshuffle the array, then transition back to `SORTING` with the next algorithm.
+- When the user manually changes the algorithm during sorting, paused, or countdown states:
+  - Transition to `CANCELING`, set a cancellation flag, and wait for the current sort to stop.
+  - Then immediately start the new algorithm on the **partially sorted** array by transitioning back to `SORTING`.
+- Prevent overlapping sorts by guarding async loops with promises and state checks.
+- Use the FSM to control UI updates, button states, and event handling, reducing bugs from conflicting flags.
+- **Display the current FSM state visibly in the UI** to help users understand what the app is doing and assist with debugging.
+- Refine responsiveness and polish UI, including dark theme styling.
+- This FSM approach will make the control flow more robust, maintainable, and easier to extend.
+- Polish UI and add dark theme styling
+
+
+## Tips
+
+- Keep sorting algorithms **stateless**: rely only on input data and yield steps
+- Modularize code: separate UI, visualization, sorting control, and algorithms
+- Test each milestone thoroughly before moving on
+- Use console logs and breakpoints to debug issues incrementally
+
+---
+
+Following this plan will help you build the project step by step, reducing bugs and confusion.
+
+---
+

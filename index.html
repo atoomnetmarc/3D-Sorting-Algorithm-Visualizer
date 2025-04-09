@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>3D Sorting Algorithm Visualizer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.175.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.175.0/examples/jsm/"
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="controls">
+    <button id="startPauseBtn">Start</button>
+    <button id="stepBtn">Step</button>
+    <select id="algorithmSelect">
+      <option value="bubbleSort">Bubble Sort</option>
+      <option value="insertionSort">Insertion Sort</option>
+      <option value="selectionSort">Selection Sort</option>
+      <option value="quickSort">Quick Sort</option>
+      <option value="mergeSort">Merge Sort</option>
+      <option value="heapSort">Heap Sort</option>
+      <option value="shellSort">Shell Sort</option>
+      <option value="cocktailShakerSort">Cocktail Shaker Sort</option>
+      <option value="countingSort">Counting Sort</option>
+      <option value="combSort">Comb Sort</option>
+      <option value="gnomeSort">Gnome Sort</option>
+      <option value="oddEvenSort">Odd-Even Sort</option>
+      <option value="cycleSort">Cycle Sort</option>
+      <option value="pigeonholeSort">Pigeonhole Sort</option>
+      <option value="bucketSort">Bucket Sort</option>
+      <option value="radixSort">Radix Sort</option>
+      <option value="pancakeSort">Pancake Sort</option>
+    </select>
+    <label for="speedSlider">Speed:</label>
+    <input type="range" id="speedSlider" min="1" max="100" value="50" />
+    <p id="algorithmDescription">Bubble Sort repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.</p>
+    <div id="fsmStateDisplay">IDLE</div>
+    <div id="countdownDisplay"></div>
+  </div>
+  <canvas id="three-canvas"></canvas>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

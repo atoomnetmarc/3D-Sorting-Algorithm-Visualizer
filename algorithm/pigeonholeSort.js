@@ -1,0 +1,27 @@
+/**
+ * Pigeonhole Sort implemented as an async generator.
+ * Stateless: sorts the passed array in-place.
+ * Assumes non-negative integer values.
+ */
+export async function* pigeonholeSort(array) {
+  const min = Math.min(...array);
+  const max = Math.max(...array);
+  const size = max - min + 1;
+  const holes = Array.from({ length: size }, () => []);
+
+  for (let i = 0; i < array.length; i++) {
+    holes[array[i] - min].push(array[i]);
+    await new Promise(resolve => setTimeout(resolve, 0));
+  }
+
+  let idx = 0;
+  for (let i = 0; i < size; i++) {
+    for (const val of holes[i]) {
+      yield { type: 'compare', indices: [idx, idx] };
+      array[idx] = val;
+      yield { type: 'swap', indices: [idx, idx] };
+      idx++;
+      await new Promise(resolve => setTimeout(resolve, 0));
+    }
+  }
+}
