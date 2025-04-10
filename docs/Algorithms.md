@@ -50,6 +50,28 @@ The visualizer supports a wide range of sorting algorithms, each implemented as 
 
 ---
 
+## Algorithm Metadata
+
+Each sorting algorithm module exports an object containing:
+
+- `name`: Human-readable algorithm name
+- `description`: Brief explanation of the algorithm
+- `isSlow`: `true` if the algorithm is slow on large inputs (e.g., quadratic time)
+- `nonNegativeOnly`: `true` if the algorithm only supports non-negative inputs
+- `supportsEmpty`: `true` if the algorithm supports empty arrays
+- (Optional) `complexity`: Time and space complexity information
+- `generator`: The async generator function implementing the algorithm
+
+This metadata is used to:
+
+- Dynamically populate the algorithm selector dropdown
+- Display algorithm descriptions in the UI
+- Adjust test cases (e.g., skip large inputs for slow algorithms)
+
+When adding new algorithms, **always include appropriate metadata**.
+
+---
+
 ## Documentation Tips
 
 When implementing algorithms, include clear comments explaining:

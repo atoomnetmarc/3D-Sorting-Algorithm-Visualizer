@@ -6,7 +6,7 @@ The 3D Sorting Algorithm Visualizer is designed with a modular architecture that
 
 ## Modules
 
-### `ui.js`
+### User Interface (in `app.js` and `controller.js`)
 
 Handles all user interface elements:
 
@@ -15,6 +15,7 @@ Handles all user interface elements:
 - Start/Pause and Step buttons
 - Countdown timer display
 - User interaction event listeners
+- Displays algorithm descriptions dynamically using metadata
 
 ### `visualizer.js`
 
@@ -25,7 +26,7 @@ Manages the 3D visualization using Three.js:
 - Handles window resizing
 - Highlights compared elements with indicator dots
 
-### `sortController.js`
+### `controller.js`
 
 Controls the sorting process:
 
@@ -33,6 +34,8 @@ Controls the sorting process:
 - Interfaces with sorting algorithm generators
 - Handles countdown timer and automatic algorithm switching
 - Coordinates updates to the visualizer and UI
+- Implements (or plans to implement) a **Finite State Machine (FSM)** to manage states like IDLE, SORTING, PAUSED, COUNTDOWN, CANCELING
+- Supports switching algorithms mid-sort using cancellation flags
 
 ### `app.js`
 
@@ -45,6 +48,12 @@ Entry point:
 ### `algorithm/` directory
 
 Contains individual sorting algorithms implemented as asynchronous generators yielding steps for visualization.
+
+Each algorithm module exports:
+- An async generator function
+- Metadata (`name`, `description`, `isSlow`, `nonNegativeOnly`, `supportsEmpty`, etc.)
+
+The metadata is used to dynamically populate the UI and configure tests.
 
 ---
 

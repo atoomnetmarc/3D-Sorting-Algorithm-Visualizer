@@ -59,6 +59,29 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 - `index.html`: Canvas and UI controls
 - `style.css`: Styling
-- `app.js`: Rendering, sorting, UI logic
-- `algorithm/`: Folder containing individual sorting algorithms
-- `ui.js`, `visualizer.js`, `sortController.js`: Modular JavaScript components
+- `app.js`: Main entry point, initializes UI, visualization, and sorting logic
+- `controller.js`: Handles sorting control, state management, and UI interactions
+- `visualizer.js`: 3D visualization using Three.js
+- `algorithm/`: Folder containing individual sorting algorithms with metadata
+
+---
+
+## Running Tests
+
+This project uses **Jest** for unit testing of sorting algorithms.
+
+To run tests:
+
+```bash
+npm test
+```
+
+or
+
+```bash
+npx jest
+```
+
+Tests will automatically detect all algorithms and verify correctness, respecting metadata flags (e.g., skipping large inputs for slow algorithms).
+
+Make sure to run tests after adding or modifying algorithms.

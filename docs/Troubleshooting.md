@@ -59,6 +59,28 @@
 
 ---
 
+## FSM Troubleshooting
+
+If the application appears stuck or unresponsive:
+
+- Check the current FSM state (e.g., IDLE, SORTING, PAUSED, COUNTDOWN, CANCELING).
+- Ensure state transitions are triggered correctly by UI events.
+- Avoid triggering multiple conflicting actions simultaneously.
+- If switching algorithms mid-sort causes issues, verify cancellation flags are respected.
+
+---
+
+## Metadata Troubleshooting
+
+If an algorithm does not appear in the dropdown or causes test failures:
+
+- Ensure the algorithm module exports required metadata (`name`, `description`, etc.).
+- Check that the metadata values are correct and consistent.
+- Verify the algorithm is imported and registered in `algorithm/index.js`.
+- Update documentation if adding new algorithms.
+
+---
+
 ## FAQ
 
 **Q:** Why does the visualization freeze or behave unexpectedly?
@@ -69,8 +91,9 @@
 **Q:** How can I add a new sorting algorithm?
 
 - Implement it as an async generator in `algorithm/`.
-- Follow the pattern of existing algorithms.
-- Import and register it in the UI.
+- Include metadata (`name`, `description`, `isSlow`, etc.).
+- Import and register it in `algorithm/index.js`.
+- Update the documentation accordingly.
 
 **Q:** Can I customize colors or animations?
 

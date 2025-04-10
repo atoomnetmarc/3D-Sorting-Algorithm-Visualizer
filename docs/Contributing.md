@@ -42,3 +42,25 @@ Writing maintainable code ensures the project can be easily understood, extended
 3. Write clear, well-documented code following the standards above
 4. Test your changes thoroughly
 5. Submit a pull request with a clear description of your changes
+
+---
+
+## Algorithm Contributions
+
+When adding a new sorting algorithm, please ensure:
+
+- The algorithm is implemented as an **async generator** yielding visualization steps.
+- The module **exports an object** containing:
+  - `name`: Human-readable name
+  - `description`: Brief explanation
+  - `isSlow`: true/false (for test skipping and UI hints)
+  - `nonNegativeOnly`: true/false
+  - `supportsEmpty`: true/false
+  - (Optional) complexity info
+  - `generator`: the async generator function
+- The algorithm is **imported and registered** in `algorithm/index.js`.
+- The **documentation** (`docs/Algorithms.md`) is updated with the new algorithm.
+- **Unit tests** are added or updated to cover the new algorithm.
+- Metadata is accurate to ensure correct UI display and test behavior.
+
+Following these guidelines helps maintain consistency, test coverage, and documentation quality.
