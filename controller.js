@@ -142,7 +142,20 @@ function pickNextAlgorithm() {
 
 export function initController() {
   const algorithmSelect = document.getElementById('algorithmSelect');
-  currentAlgorithm = algorithmSelect.value;
+
+  // Dynamically populate dropdown
+  algorithmSelect.innerHTML = '';
+  for (const [key, algo] of Object.entries(algorithms)) {
+    const option = document.createElement('option');
+    option.value = key;
+    option.textContent = algo.name || key;
+    algorithmSelect.appendChild(option);
+  }
+
+  // Set default algorithm to the first one
+  const firstKey = Object.keys(algorithms)[0];
+  currentAlgorithm = firstKey;
+  algorithmSelect.value = firstKey;
 
   const speedSlider = document.getElementById('speedSlider');
   speed = parseInt(speedSlider.value, 10);
@@ -163,7 +176,7 @@ export function initController() {
     // Optional: implement step mode if desired
   });
 
-  document.getElementById('algorithmSelect').addEventListener('change', async (e) => {
+  algorithmSelect.addEventListener('change', async (e) => {
     currentAlgorithm = e.target.value;
     updateAlgorithmDescription();
     if (fsmState === 'SORTING' || fsmState === 'PAUSED' || fsmState === 'COUNTDOWN') {

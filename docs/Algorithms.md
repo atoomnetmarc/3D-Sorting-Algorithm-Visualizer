@@ -23,6 +23,13 @@ The visualizer supports a wide range of sorting algorithms, each implemented as 
 - Bucket Sort
 - Radix Sort
 - Pancake Sort
+- Stooge Sort — Highly inefficient recursive sort
+- Slow Sort — Deliberately inefficient recursive sort
+- Bitonic Sort — Parallelizable sorting network
+- TimSort — Hybrid merge/insertion sort used in Python and Java
+- IntroSort — Hybrid quicksort/heapsort to avoid worst-case
+- Strand Sort — Extracts increasing subsequences and merges
+- Gravity (Bead) Sort — Non-comparison sort simulating gravity
 
 ---
 

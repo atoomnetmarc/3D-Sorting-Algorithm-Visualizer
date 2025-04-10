@@ -15,6 +15,13 @@ import { quickSort } from './quickSort.js';
 import { radixSort } from './radixSort.js';
 import { selectionSort } from './selectionSort.js';
 import { shellSort } from './shellSort.js';
+import { stoogeSort } from './stoogeSort.js';
+import { slowSort } from './slowSort.js';
+import { bitonicSort } from './bitonicSort.js';
+import { timSort } from './timSort.js';
+import { introSort } from './introSort.js';
+import { strandSort } from './strandSort.js';
+import { gravitySort } from './gravitySort.js';
 
 export const algorithms = {
   bubbleSort,
@@ -33,5 +40,12 @@ export const algorithms = {
   quickSort,
   radixSort,
   selectionSort,
-  shellSort
+  shellSort,
+  stoogeSort,
+  slowSort,
+  bitonicSort,
+  timSort,
+  introSort,
+  strandSort,
+  gravitySort,
 };

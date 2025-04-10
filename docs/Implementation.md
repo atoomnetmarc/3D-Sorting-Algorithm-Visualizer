@@ -233,4 +233,59 @@ flowchart TD
 Following this plan will help you build the project step by step, reducing bugs and confusion.
 
 ---
+## Milestone 9: Add all the algorithms!
+
+- **Goal:** Greatly expand the visualizer's algorithm library with a wide variety of terminating sorting algorithms, beyond the core set.
+- **Scope:** Add at least 10-15 new algorithms, including hybrids, parallelizable sorts, educational inefficient sorts, and exotic algorithms.
+
+### Candidate Algorithms
+
+- TimSort
+- IntroSort
+- Bitonic Sort
+- Strand Sort
+- SmoothSort
+- Tree Sort
+- Stooge Sort
+- Slow Sort
+- Gravity (Bead) Sort
+- Binary Insertion Sort
+- Library Sort
+- Cartesian Tree Sort
+- Pairwise Sorting Network
+
+### Implementation Guidelines
+
+**Note:** Avoid including unstable, unreliable, or joke algorithms that do not consistently sort data correctly. Only algorithms that terminate and produce correct sorted output should be part of the visualizer.
+
+- **Each algorithm must export an object** with:
+  - `name`: Human-readable name
+  - `description`: Brief explanation
+  - `isSlow`: true/false (for test skipping and UI hints)
+  - `nonNegativeOnly`: true/false (for test skipping)
+  - `supportsEmpty`: true/false (for test skipping)
+  - **Additional metadata for testing and UI (recommended):**
+    - `isStable`: true/false
+    - `isInPlace`: true/false
+    - `isComparisonSort`: true/false
+    - `timeComplexity`: e.g., "O(n log n)"
+    - `spaceComplexity`: e.g., "O(1)"
+- **Implement as async generators** yielding `{ type: 'compare' | 'swap', indices: [i, j] }`.
+- **Register all new algorithms** in `algorithm/index.js`.
+- **Update `docs/Algorithms.md`** with new entries and descriptions.
+
+### Testing
+
+- The existing **universal test suite** (see Milestone 6) will automatically pick up new algorithms.
+- Ensure metadata is accurate to enable correct test skipping and validation.
+- Run tests on all new algorithms to verify correctness and integration.
+
+### Optional Enhancements
+
+- Categorize algorithms (comparison-based, non-comparison, hybrid, educational).
+- Add UI filters based on metadata (e.g., show only stable sorts).
+- Add complexity info to UI tooltips or documentation.
+
+---
+
 
