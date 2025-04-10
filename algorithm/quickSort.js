@@ -6,6 +6,9 @@
 export const quickSort = {
   name: 'Quick Sort',
   description: 'Quick Sort partitions the array around a pivot, recursively sorting the partitions.',
+  isSlow: false,
+  nonNegativeOnly: false,
+  supportsEmpty: true,
   async *generator(array) {
     const stack = [[0, array.length - 1]];
 

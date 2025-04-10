@@ -6,6 +6,9 @@
 export const oddEvenSort = {
   name: 'Odd-Even Sort',
   description: 'Odd-Even Sort repeatedly compares odd and even indexed pairs to sort the array.',
+  isSlow: true,
+  nonNegativeOnly: false,
+  supportsEmpty: true,
   async *generator(array) {
     const n = array.length;
     let sorted = false;

@@ -6,6 +6,9 @@
 export const heapSort = {
   name: 'Heap Sort',
   description: 'Heap Sort builds a max heap and repeatedly extracts the maximum element to sort the array.',
+  isSlow: false,
+  nonNegativeOnly: false,
+  supportsEmpty: true,
   async *generator(array) {
     const n = array.length;
 

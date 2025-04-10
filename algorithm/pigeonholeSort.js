@@ -7,6 +7,9 @@
 export const pigeonholeSort = {
   name: 'Pigeonhole Sort',
   description: 'Pigeonhole Sort distributes elements into holes and collects them in order.',
+  isSlow: false,
+  nonNegativeOnly: true,
+  supportsEmpty: false,
   async *generator(array) {
     const min = Math.min(...array);
     const max = Math.max(...array);

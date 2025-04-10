@@ -7,6 +7,9 @@
 export const countingSort = {
   name: 'Counting Sort',
   description: 'Counting Sort counts occurrences of each value and reconstructs the sorted array.',
+  isSlow: false,
+  nonNegativeOnly: true,
+  supportsEmpty: false,
   async *generator(array) {
     const max = Math.max(...array);
     const count = new Array(max + 1).fill(0);

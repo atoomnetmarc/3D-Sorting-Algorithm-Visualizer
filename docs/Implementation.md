@@ -146,6 +146,15 @@ flowchart TD
 ## Milestone 6: Implement Unit Tests for Sorting Algorithms
 
 - Develop a comprehensive suite of **unit tests** for all sorting algorithms.
+- **Add metadata flags** to each algorithm module to describe its properties:
+  - `isSlow`: whether the algorithm is slow on large inputs (e.g., quadratic time)
+  - `nonNegativeOnly`: whether the algorithm only supports non-negative inputs
+  - `supportsEmpty`: whether the algorithm supports empty arrays
+- The **test suite dynamically reads these metadata flags** to:
+  - Skip large array tests for slow algorithms
+  - Skip negative number tests for algorithms that don't support negatives
+  - Skip empty array tests for algorithms that don't support empty inputs
+- This makes the test suite **universal and self-configuring**, without hardcoded algorithm lists.
 - Tests should:
   - **Run each async generator to completion** on various input arrays.
   - **Verify the array is sorted in ascending order** after sorting completes.
@@ -153,16 +162,17 @@ flowchart TD
   - **Count the number of iterations (yields)** during sorting.
   - **Assert that the number of iterations does not exceed a maximum threshold** based on the algorithm and input size.
 - Include test cases for:
-  - Empty arrays
+  - Empty arrays (skipped if unsupported)
   - Single-element arrays
   - Already sorted arrays
   - Reverse sorted arrays
   - Arrays with duplicates
-  - Arrays with negative numbers
-  - Large random arrays
+  - Arrays with negative numbers (skipped if unsupported)
+  - Large random arrays (skipped for slow algorithms)
 - Use **Jest** as the JavaScript testing framework, which supports async tests and is easy to set up.
 - Define **maximum iteration limits** conservatively based on the expected worst-case complexity of each algorithm (e.g., Bubble Sort worst case ≈ n²).
 - Automate these tests to run on every code change to catch regressions early.
+- **All tests should pass** when algorithms respect their domain constraints.
 
 ---
 

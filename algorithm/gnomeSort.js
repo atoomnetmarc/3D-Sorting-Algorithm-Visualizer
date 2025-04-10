@@ -6,6 +6,9 @@
 export const gnomeSort = {
   name: 'Gnome Sort',
   description: 'Gnome Sort moves elements to their correct place by swapping backward like a garden gnome.',
+  isSlow: true,
+  nonNegativeOnly: false,
+  supportsEmpty: true,
   async *generator(array) {
     let i = 0;
     const n = array.length;

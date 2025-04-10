@@ -7,6 +7,9 @@
 export const radixSort = {
   name: 'Radix Sort',
   description: 'Radix Sort sorts numbers digit by digit from least to most significant.',
+  isSlow: false,
+  nonNegativeOnly: true,
+  supportsEmpty: false,
   async *generator(array) {
     const max = Math.max(...array);
     let exp = 1;

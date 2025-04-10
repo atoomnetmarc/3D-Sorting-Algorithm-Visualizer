@@ -6,6 +6,9 @@
 export const combSort = {
   name: 'Comb Sort',
   description: 'Comb Sort improves bubble sort by comparing elements with a gap that shrinks over time.',
+  isSlow: false,
+  nonNegativeOnly: false,
+  supportsEmpty: true,
   async *generator(array) {
     const n = array.length;
     let gap = n;

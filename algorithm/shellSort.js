@@ -6,6 +6,9 @@
 export const shellSort = {
   name: 'Shell Sort',
   description: 'Shell Sort sorts elements far apart and reduces the gap, improving insertion sort.',
+  isSlow: false,
+  nonNegativeOnly: false,
+  supportsEmpty: true,
   async *generator(array) {
     const n = array.length;
     let gap = Math.floor(n / 2);

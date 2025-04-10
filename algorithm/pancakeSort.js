@@ -6,6 +6,9 @@
 export const pancakeSort = {
   name: 'Pancake Sort',
   description: 'Pancake Sort repeatedly flips subarrays to move the largest unsorted element to its place.',
+  isSlow: true,
+  nonNegativeOnly: false,
+  supportsEmpty: true,
   async *generator(array) {
     const n = array.length;
 

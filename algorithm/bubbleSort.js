@@ -6,6 +6,9 @@
 export const bubbleSort = {
   name: 'Bubble Sort',
   description: 'Bubble Sort repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.',
+  isSlow: true,
+  nonNegativeOnly: false,
+  supportsEmpty: true,
   async *generator(array) {
     const n = array.length;
     let swapped;

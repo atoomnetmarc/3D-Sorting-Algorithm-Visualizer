@@ -7,6 +7,9 @@
 export const bucketSort = {
   name: 'Bucket Sort',
   description: 'Bucket Sort distributes elements into buckets, sorts each, then concatenates.',
+  isSlow: false,
+  nonNegativeOnly: true,
+  supportsEmpty: false,
   async *generator(array) {
     const n = array.length;
     const buckets = Array.from({ length: n }, () => []);

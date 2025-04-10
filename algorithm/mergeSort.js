@@ -6,6 +6,9 @@
 export const mergeSort = {
   name: 'Merge Sort',
   description: 'Merge Sort divides the array into halves, recursively sorts them, and then merges the sorted halves.',
+  isSlow: false,
+  nonNegativeOnly: false,
+  supportsEmpty: true,
   async *generator(array) {
     const n = array.length;
     const aux = array.slice();

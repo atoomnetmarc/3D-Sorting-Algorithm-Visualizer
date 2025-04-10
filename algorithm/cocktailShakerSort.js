@@ -6,6 +6,9 @@
 export const cocktailShakerSort = {
   name: 'Cocktail Shaker Sort',
   description: 'Cocktail Shaker Sort is a bidirectional bubble sort that sorts in both directions each pass.',
+  isSlow: false,
+  nonNegativeOnly: false,
+  supportsEmpty: true,
   async *generator(array) {
     let start = 0;
     let end = array.length - 1;

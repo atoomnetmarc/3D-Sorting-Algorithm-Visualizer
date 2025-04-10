@@ -6,6 +6,9 @@
 export const cycleSort = {
   name: 'Cycle Sort',
   description: 'Cycle Sort minimizes writes by rotating cycles of elements into place.',
+  isSlow: true,
+  nonNegativeOnly: false,
+  supportsEmpty: true,
   async *generator(array) {
     const n = array.length;
 

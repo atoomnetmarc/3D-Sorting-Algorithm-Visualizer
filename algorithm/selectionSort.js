@@ -6,6 +6,9 @@
 export const selectionSort = {
   name: 'Selection Sort',
   description: 'Selection Sort repeatedly selects the minimum element from the unsorted part and moves it to the sorted part.',
+  isSlow: true,
+  nonNegativeOnly: false,
+  supportsEmpty: true,
   async *generator(array) {
     const n = array.length;
     for (let i = 0; i < n - 1; i++) {

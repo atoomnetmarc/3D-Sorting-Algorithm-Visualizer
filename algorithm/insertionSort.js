@@ -6,6 +6,9 @@
 export const insertionSort = {
   name: 'Insertion Sort',
   description: 'Insertion Sort builds the sorted array one item at a time by comparing and inserting elements into their correct position.',
+  isSlow: false,
+  nonNegativeOnly: false,
+  supportsEmpty: true,
   async *generator(array) {
     const n = array.length;
     for (let i = 1; i < n; i++) {
