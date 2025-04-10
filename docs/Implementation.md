@@ -63,17 +63,42 @@ This guide provides a step-by-step approach to building the 3D Sorting Algorithm
 
 ---
 
-## Milestone 5: Add a Few More Algorithms
+## Milestone 5: Centralize Algorithm Collection with Decentralized Metadata
 
-- Implement 2-3 additional sorting algorithms as async generators:
-  - Insertion Sort
-  - Quicksort
-  - Selection Sort
-- Ensure these algorithms yield consistent compare/swap steps
-- Integrate them into the dropdown with dynamic switching during sorting
-- Refine the stateless async generator pattern
-- Perfect the cancellation and switching logic
-- Test seamless mid-sort switching thoroughly
+- **Refactor all sorting algorithm modules** (e.g., `bubbleSort.js`, `quickSort.js`) to **export an object** containing:
+  - The async generator function
+  - Metadata such as:
+    - `name`: Human-readable algorithm name
+    - `description`: Brief explanation of the algorithm
+    - (Optional) `complexity`: Time/space complexity info
+
+- **Example export from an algorithm module:**
+
+```js
+export const bubbleSort = {
+  name: 'Bubble Sort',
+  description: 'Bubble Sort repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.',
+  generator: async function* (array) {
+    // sorting logic here
+  }
+};
+```
+
+- **Create a central registry module** (e.g., `algorithm/index.js`) that:
+  - **Imports all algorithm modules**
+  - **Exports a single object or array** containing all algorithm exports
+  - **Does NOT add or duplicate metadata**; it simply collects the modules
+
+- **Refactor the controller** to:
+  - Import the central registry
+  - Dynamically populate dropdown options using the `name` metadata
+  - Display descriptions using the `description` metadata
+  - Call the generator function via `algorithm.generator(array)`
+
+- **Add 2-3 additional sorting algorithms** (Insertion Sort, Quicksort, Selection Sort) following this export pattern
+- **Ensure all algorithms yield consistent compare/swap steps**
+- **Perfect the cancellation and switching logic** using the centralized collection
+- **Prepare for future unit testing** by enabling easy iteration over all algorithms via the registry
 
 ### Hints
 

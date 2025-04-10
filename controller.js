@@ -1,41 +1,6 @@
 import { dataArray, highlightComparedIndices, updateScaleAndBars } from './visualizer.js';
-import { bubbleSort } from './algorithm/bubbleSort.js';
-import { insertionSort } from './algorithm/insertionSort.js';
-import { selectionSort } from './algorithm/selectionSort.js';
-import { quickSort } from './algorithm/quickSort.js';
-import { mergeSort } from './algorithm/mergeSort.js';
-import { heapSort } from './algorithm/heapSort.js';
-import { shellSort } from './algorithm/shellSort.js';
-import { cocktailShakerSort } from './algorithm/cocktailShakerSort.js';
-import { countingSort } from './algorithm/countingSort.js';
-import { combSort } from './algorithm/combSort.js';
-import { gnomeSort } from './algorithm/gnomeSort.js';
-import { oddEvenSort } from './algorithm/oddEvenSort.js';
-import { cycleSort } from './algorithm/cycleSort.js';
-import { pigeonholeSort } from './algorithm/pigeonholeSort.js';
-import { bucketSort } from './algorithm/bucketSort.js';
-import { radixSort } from './algorithm/radixSort.js';
-import { pancakeSort } from './algorithm/pancakeSort.js';
+import { algorithms } from './algorithm/index.js';
 
-const algorithmDescriptions = {
-  bubbleSort: 'Bubble Sort repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.',
-  insertionSort: 'Insertion Sort builds the sorted array one item at a time by comparing and inserting elements into their correct position.',
-  selectionSort: 'Selection Sort repeatedly selects the minimum element from the unsorted part and moves it to the sorted part.',
-  quickSort: 'Quick Sort partitions the array around a pivot, recursively sorting the partitions.',
-  mergeSort: 'Merge Sort divides the array into halves, recursively sorts them, and then merges the sorted halves.',
-  heapSort: 'Heap Sort builds a max heap and repeatedly extracts the maximum element to sort the array.',
-  shellSort: 'Shell Sort sorts elements far apart and reduces the gap, improving insertion sort.',
-  cocktailShakerSort: 'Cocktail Shaker Sort is a bidirectional bubble sort that sorts in both directions each pass.',
-  countingSort: 'Counting Sort counts occurrences of each value and reconstructs the sorted array.',
-  combSort: 'Comb Sort improves bubble sort by comparing elements with a gap that shrinks over time.',
-  gnomeSort: 'Gnome Sort moves elements to their correct place by swapping backward like a garden gnome.',
-  oddEvenSort: 'Odd-Even Sort repeatedly compares odd and even indexed pairs to sort the array.',
-  cycleSort: 'Cycle Sort minimizes writes by rotating cycles of elements into place.',
-  pigeonholeSort: 'Pigeonhole Sort distributes elements into holes and collects them in order.',
-  bucketSort: 'Bucket Sort distributes elements into buckets, sorts each, then concatenates.',
-  radixSort: 'Radix Sort sorts numbers digit by digit from least to most significant.',
-  pancakeSort: 'Pancake Sort repeatedly flips subarrays to move the largest unsorted element to its place.'
-};
 
 let fsmState = 'IDLE';
 let sortLoopPromise = null;
@@ -51,7 +16,7 @@ function updateFSMDisplay() {
 }
 
 function updateAlgorithmDescription() {
-  const desc = algorithmDescriptions[currentAlgorithm] || '';
+  const desc = algorithms[currentAlgorithm]?.description || '';
   document.getElementById('algorithmDescription').textContent = desc;
 }
 
@@ -69,25 +34,12 @@ function updateStartPauseButton() {
 }
 
 function getAlgorithmGenerator() {
-  switch (currentAlgorithm) {
-    case 'bubbleSort': return bubbleSort(dataArray);
-    case 'insertionSort': return insertionSort(dataArray);
-    case 'selectionSort': return selectionSort(dataArray);
-    case 'quickSort': return quickSort(dataArray);
-    case 'mergeSort': return mergeSort(dataArray);
-    case 'heapSort': return heapSort(dataArray);
-    case 'shellSort': return shellSort(dataArray);
-    case 'cocktailShakerSort': return cocktailShakerSort(dataArray);
-    case 'countingSort': return countingSort(dataArray);
-    case 'combSort': return combSort(dataArray);
-    case 'gnomeSort': return gnomeSort(dataArray);
-    case 'oddEvenSort': return oddEvenSort(dataArray);
-    case 'cycleSort': return cycleSort(dataArray);
-    case 'pigeonholeSort': return pigeonholeSort(dataArray);
-    case 'bucketSort': return bucketSort(dataArray);
-    case 'radixSort': return radixSort(dataArray);
-    case 'pancakeSort': return pancakeSort(dataArray);
-    default: return bubbleSort(dataArray);
+  const algo = algorithms[currentAlgorithm];
+  if (algo && typeof algo.generator === 'function') {
+    return algo.generator(dataArray);
+  } else {
+    // fallback to bubbleSort if not found
+    return algorithms['bubbleSort'].generator(dataArray);
   }
 }
 

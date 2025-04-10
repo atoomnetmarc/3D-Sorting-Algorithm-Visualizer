@@ -1,34 +1,39 @@
 /**
- * Pancake Sort implemented as an async generator.
- * Stateless: sorts the passed array in-place.
+ * Pancake Sort algorithm module.
+ * Exports metadata and async generator.
  */
-export async function* pancakeSort(array) {
-  const n = array.length;
 
-  function flip(end) {
-    let start = 0;
-    while (start < end) {
-      [array[start], array[end]] = [array[end], array[start]];
-      start++;
-      end--;
-    }
-  }
+export const pancakeSort = {
+  name: 'Pancake Sort',
+  description: 'Pancake Sort repeatedly flips subarrays to move the largest unsorted element to its place.',
+  async *generator(array) {
+    const n = array.length;
 
-  for (let currSize = n; currSize > 1; currSize--) {
-    let maxIdx = 0;
-    for (let i = 1; i < currSize; i++) {
-      yield { type: 'compare', indices: [i, maxIdx] };
-      if (array[i] > array[maxIdx]) {
-        maxIdx = i;
+    function flip(end) {
+      let start = 0;
+      while (start < end) {
+        [array[start], array[end]] = [array[end], array[start]];
+        start++;
+        end--;
       }
-      await new Promise(resolve => setTimeout(resolve, 0));
     }
 
-    if (maxIdx !== currSize - 1) {
-      flip(maxIdx);
-      yield { type: 'swap', indices: [0, maxIdx] };
-      flip(currSize - 1);
-      yield { type: 'swap', indices: [0, currSize - 1] };
+    for (let currSize = n; currSize > 1; currSize--) {
+      let maxIdx = 0;
+      for (let i = 1; i < currSize; i++) {
+        yield { type: 'compare', indices: [i, maxIdx] };
+        if (array[i] > array[maxIdx]) {
+          maxIdx = i;
+        }
+        await new Promise(resolve => setTimeout(resolve, 0));
+      }
+
+      if (maxIdx !== currSize - 1) {
+        flip(maxIdx);
+        yield { type: 'swap', indices: [0, maxIdx] };
+        flip(currSize - 1);
+        yield { type: 'swap', indices: [0, currSize - 1] };
+      }
     }
   }
-}
+};
