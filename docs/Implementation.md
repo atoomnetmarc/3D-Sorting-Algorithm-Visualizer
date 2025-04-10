@@ -117,9 +117,56 @@ export const bubbleSort = {
   - Avoid flickering or inconsistent states.
 - **Keep the user experience intuitive**: switching should feel instant and not require manual pause/resume.
 
+### Architecture Diagram
+
+```mermaid
+flowchart TD
+    subgraph Algorithm Modules
+        A1[bubbleSort.js<br/>exports {name, description, generator}]
+        A2[quickSort.js<br/>exports {name, description, generator}]
+        A3[insertionSort.js<br/>exports {name, description, generator}]
+    end
+
+    subgraph Registry
+        R[algorithm/index.js<br/>collects & re-exports]
+    end
+
+    subgraph Controller
+        C[controller.js<br/>imports registry,<br/>uses metadata + generator]
+    end
+
+    A1 --> R
+    A2 --> R
+    A3 --> R
+    R --> C
+```
+
 ---
 
-## Milestone 6: Add Remaining Algorithms
+## Milestone 6: Implement Unit Tests for Sorting Algorithms
+
+- Develop a comprehensive suite of **unit tests** for all sorting algorithms.
+- Tests should:
+  - **Run each async generator to completion** on various input arrays.
+  - **Verify the array is sorted in ascending order** after sorting completes.
+  - **Check that the sorted array contains the same elements** as the original (no loss or duplication).
+  - **Count the number of iterations (yields)** during sorting.
+  - **Assert that the number of iterations does not exceed a maximum threshold** based on the algorithm and input size.
+- Include test cases for:
+  - Empty arrays
+  - Single-element arrays
+  - Already sorted arrays
+  - Reverse sorted arrays
+  - Arrays with duplicates
+  - Arrays with negative numbers
+  - Large random arrays
+- Use a JavaScript testing framework like **Jest** or **Mocha** that supports async tests.
+- Define **maximum iteration limits** conservatively based on the expected worst-case complexity of each algorithm (e.g., Bubble Sort worst case ≈ n²).
+- Automate these tests to run on every code change to catch regressions early.
+
+---
+
+## Milestone 7: Add Remaining Algorithms
 
 - Implement the remaining sorting algorithms as async generators:
   - Merge Sort
@@ -141,7 +188,7 @@ export const bubbleSort = {
 
 ---
 
-## Milestone 7: Automatic Cycling and FSM-Based Control Enhancements
+## Milestone 8: Automatic Cycling and FSM-Based Control Enhancements
 
 - **Refactor the control logic using an explicit Finite State Machine (FSM)** to manage all UI and sorting states clearly.
 - Define explicit states such as:
