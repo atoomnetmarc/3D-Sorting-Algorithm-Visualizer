@@ -59,6 +59,42 @@ Open [http://localhost:8000](http://localhost:8000).
 - [Troubleshooting & FAQ](docs/Troubleshooting.md)
 - [Contributing Guidelines](docs/Contributing.md)
 
+## Testing
+
+This project uses [Jest](https://jestjs.io/) for unit testing of sorting algorithms.
+
+### Install dependencies
+
+If you haven't already, install all dependencies (including Jest):
+
+```bash
+npm install
+```
+
+### Run tests
+
+To execute all unit tests:
+
+```bash
+npx jest
+```
+
+Or, if you have configured an npm script named `test`:
+
+```bash
+npm test
+```
+
+### Generate coverage report
+
+To generate a code coverage report:
+
+```bash
+npx jest --coverage
+```
+
+The coverage report will be saved in the `coverage/` directory.
+
 ## License
 
 This project is open source and free to use, see [LICENSE](LICENSE).

@@ -160,7 +160,7 @@ flowchart TD
   - Arrays with duplicates
   - Arrays with negative numbers
   - Large random arrays
-- Use a JavaScript testing framework like **Jest** or **Mocha** that supports async tests.
+- Use **Jest** as the JavaScript testing framework, which supports async tests and is easy to set up.
 - Define **maximum iteration limits** conservatively based on the expected worst-case complexity of each algorithm (e.g., Bubble Sort worst case ≈ n²).
 - Automate these tests to run on every code change to catch regressions early.
 
