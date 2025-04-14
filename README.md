@@ -6,7 +6,7 @@ An interactive 3D visualization of sorting algorithms built with Three.js. It de
 
 ## Implementation Process
 
-This project was developed collaboratively with the AI model [Quasar Alpha](https://openrouter.ai/openrouter/quasar-alpha) (which was an early test version of [OpenAI GPT-4.1](https://openrouter.ai/openai/gpt-4.1)). The development was structured into milestones, each implemented step-by-step by the AI. After completing each milestone, the human operator, [Marc Ketel](https://github.com/atoomnetmarc/), reviewed the implementation and discussed the AI's experiences and challenges. These insights were then incorporated back into the milestone, creating an iterative feedback loop that refined the development process.
+This project was developed collaboratively with the AI models [Quasar Alpha](https://openrouter.ai/openrouter/quasar-alpha) (which was an early test version of OpenAI GPT-4.1) and [OpenAI GPT-4.1](https://openrouter.ai/openai/gpt-4.1). The development was structured into milestones, each implemented step-by-step by the AI. After completing each milestone, the human operator, [Marc Ketel](https://github.com/atoomnetmarc/), reviewed the implementation and discussed the AI's experiences and challenges. These insights were then incorporated back into the milestone, creating an iterative feedback loop that refined the development process.
 
 ```mermaid
 flowchart LR

@@ -64,6 +64,24 @@ describe('Sorting Algorithms', () => {
           }
         });
       }
+      it('emits compare steps for indicator dots', async () => {
+        const arr = [3, 1, 2];
+        const gen = algo.generator([...arr]);
+        let compareCount = 0;
+        while (true) {
+          const { value, done } = await gen.next();
+          if (done) break;
+          if (value && value.type === 'compare') {
+            compareCount++;
+          }
+        }
+        if (algo.isComparisonSort !== false) {
+          expect(compareCount).toBeGreaterThan(0);
+        } else {
+          // Non-comparison sort: just document that no compare steps are expected
+          expect(compareCount).toBe(0);
+        }
+      });
 
       // Skip large array test for slow algorithms
       if (!algo.isSlow) {
