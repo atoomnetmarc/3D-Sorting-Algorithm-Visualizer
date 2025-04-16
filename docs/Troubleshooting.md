@@ -49,6 +49,31 @@
 
 ---
 
+### 5. WebGL2 Not Supported or Context Creation Fails
+
+**Cause:**
+Your browser or system does not support WebGL2, or WebGL2 is disabled due to browser settings, hardware, or graphics driver issues. Three.js (since r163) requires WebGL2 and will not work with WebGL1.
+
+**Symptoms:**
+- The app displays an error message:
+  `WebGL context could not be created. Please check your browser and graphics settings.`
+- You may also see details such as:
+  `THREE.WebGLRenderer: WebGL 1 is not supported since r163.`
+  or
+  `AllowWebgl2:false restricts context creation on this system.`
+
+**Fixes & Tips:**
+- Make sure your browser is up to date.
+- Try using a different browser that supports WebGL2.
+- Check your browser settings to ensure WebGL2 is enabled.
+- Update your graphics drivers.
+- If you are using Firefox, check `about:config` for `webgl.disabled` and `webgl.enable-webgl2` settings.
+- If you are running in a virtual machine or remote desktop, try running on native hardware.
+
+If the problem persists, your system may not support WebGL2. See [WebGL2 support status](https://caniuse.com/webgl2) for more information.
+
+---
+
 ## Debugging Tips
 
 - Use `console.log()` to trace algorithm steps and UI events

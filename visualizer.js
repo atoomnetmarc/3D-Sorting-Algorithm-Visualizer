@@ -24,6 +24,32 @@ let scene, camera, renderer, controls, barsGroup;
 let indicatorGroup = null;
 
 export function initVisualizer(canvas) {
+  // WebGL support check
+  // Inline WebGL support checks
+  function showWebGLError(canvas, message) {
+    if (!canvas || !canvas.parentNode) return;
+    // Prevent duplicate error messages
+    if (canvas.parentNode.querySelector('.webgl-error-message')) return;
+    const errorMsg = document.createElement('div');
+    errorMsg.className = 'webgl-error-message';
+    errorMsg.style.position = 'absolute';
+    errorMsg.style.top = '0';
+    errorMsg.style.left = '0';
+    errorMsg.style.width = '100%';
+    errorMsg.style.height = '100%';
+    errorMsg.style.background = '#202020';
+    errorMsg.style.color = '#fff';
+    errorMsg.style.display = 'flex';
+    errorMsg.style.alignItems = 'center';
+    errorMsg.style.justifyContent = 'center';
+    errorMsg.style.fontSize = '1.5em';
+    errorMsg.style.zIndex = '1000';
+    errorMsg.innerText = message;
+    canvas.parentNode.appendChild(errorMsg);
+  }
+
+  // Removed redundant pre-check for WebGL2/WebGL1 support.
+
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x202020);
 
@@ -43,7 +69,24 @@ export function initVisualizer(canvas) {
   scene.add(directionalLight);
 
   // Renderer
-  renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  // Try to create renderer (WebGL2 only, as Three.js r163+ does not support WebGL1)
+  let rendererCreationError = null;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  } catch (e) {
+    rendererCreationError = e;
+  }
+  if (!renderer) {
+    let extraMsg = '';
+    if (rendererCreationError && typeof rendererCreationError.message === 'string' && rendererCreationError.message.length > 0) {
+      extraMsg = '\n\nDetails: ' + rendererCreationError.message;
+    }
+    showWebGLError(
+      canvas,
+      'WebGL context could not be created.\n\nPlease check your browser and graphics settings.\n\nIf the problem persists, try updating your browser or using a different one that supports WebGL2.' + extraMsg
+    );
+    return false;
+  }
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
 
@@ -77,6 +120,7 @@ export function initVisualizer(canvas) {
   window.addEventListener('resize', onWindowResize);
 
   animate();
+  return true;
 }
 
 export function highlightComparedIndices(index1, index2) {
